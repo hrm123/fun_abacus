@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+.chat-scroll::-webkit-scrollbar,
+.workspace-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.chat-scroll::-webkit-scrollbar-thumb,
+.workspace-scroll::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background: oklch(var(--bc) / 0.2);
+}
+
+.pattern-dots {
+  background-image: radial-gradient(oklch(var(--bc) / 0.08) 1.5px, transparent 1.5px);
+  background-size: 22px 22px;
+}

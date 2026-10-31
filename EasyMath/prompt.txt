@@ -1,0 +1,19 @@
+can you create a middle school Math educational asessment website named  'EasyMath from EconoAI', which is used for
+  accessing the math skill level of middle class students (5th-8th), and what mode they learn the fastest (by
+  memorizing or by gamification kind of learning or audio based learning or visual learning etc) and then give a
+  curriculum/path for them to master the middle school mathematics. This website should be built using React,
+  tailwind, daisyUI that has one nav bar at the top, and use Meta Model APIs if the API key is given else use local
+  Illama model through Ollama. The website should support day and night modes with a toggle for them in the top nav
+  bar. Top navbar should also have time 'EasyMath from EconoAI'. Its UI should have one working window/area where user
+  assessment/interaction will happen and a chat window where user/chatbot communication will happen, along with top
+  nav bar for basic logo and day/night theme switch. The Chatbot will use (Meta Model APIs) when API key has been
+  specified, else use Ollala/gemma4 model that is hosted locally on the machine, to strategize which questions
+  progressively to ask to  access the student current skill level at Math and which mode of training (audio/visual/
+  game kinf od learning etc.) will work better for the student to learn math. The chat bot should pose questions to
+  the student (give any interactive puzzle/multiple choice Q&A) in the working space as required, so as to access what
+  is the users math skill level and pose any additional questions to learn about what might be best way/mode the user
+  will learn fast. for example, some student might find it easier to learn basic math through something tactile like
+  Abacus, while other students might learn through some story telling kind of approach with pictures. The final output
+  of the assessment will be curriculum (along with mode of delivery to be used for each part of the curriculum)  for
+  the student to reach from their current level to 8th grade math.
+  
