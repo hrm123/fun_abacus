@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Abacus Fun — Soroban Math for 6th Graders</title>
+  <meta name="description" content="Learn addition, subtraction, multiplication and division with a friendly interactive Soroban abacus and Abby the AI coach." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-beads" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <div>
+        <h1>Abacus Fun</h1>
+        <p>Soroban math club for 6th graders</p>
+      </div>
+    </div>
+    <div class="player-card" aria-live="polite">
+      <span id="levelBadge" class="level-badge">Level 1 · Bead Explorer</span>
+      <span class="streak">🔥 <b id="streakCount">0</b> streak</span>
+      <span id="aiMode" class="ai-mode" title="AI coach mode">coach: …</span>
+    </div>
+  </header>
+
+  <nav class="tabs" aria-label="Sections">
+    <button data-tab="playground" class="active">Abacus</button>
+    <button data-tab="learn">How it works</button>
+    <button data-tab="add">Add</button>
+    <button data-tab="subtract">Subtract</button>
+    <button data-tab="multiply">Multiply</button>
+    <button data-tab="divide">Divide</button>
+    <button data-tab="quiz">Quiz</button>
+  </nav>
+
+  <main>
+    <section id="tab-playground" class="panel active">
+      <div class="split">
+        <div>
+          <h2>Your Soroban</h2>
+          <p class="lede">Click a bead to slide it to the beam. Beads touching the beam count. Top bead = <b>5</b>, each bottom bead = <b>1</b>.</p>
+          <div class="abacus-tools">
+            <label>Rods
+              <select id="rodCount">
+                <option value="5">5</option>
+                <option value="7" selected>7</option>
+                <option value="9">9</option>
+              </select>
+            </label>
+            <button id="resetAbacus" class="btn">Reset</button>
+            <button id="randomAbacus" class="btn warm">Mystery number</button>
+            <button id="readAloud" class="btn ghost">🔊 Say it</button>
+          </div>
+          <div id="mainAbacus"></div>
+          <p class="readout">Value: <b id="mainValue">0</b> <span id="mainBreakdown" class="breakdown"></span></p>
+        </div>
+        <aside class="coach-card">
+          <h3>Abby the Abacus <span class="dot" aria-hidden="true"></span></h3>
+          <p id="coachStatus" class="muted">Say hi! I give hints in abacus words.</p>
+          <div id="chatLog" class="chat" aria-live="polite"></div>
+          <form id="chatForm" class="chat-form">
+            <input id="chatInput" type="text" maxlength="300" placeholder="Ask for a hint…" autocomplete="off" />
+            <button class="btn" type="submit">Send</button>
+          </form>
+          <div class="quick">
+            <button data-ask="Give me a hint for this problem">Hint</button>
+            <button data-ask="I'm stuck, explain it like I'm 5">I'm stuck</button>
+            <button data-ask="Give me a fun challenge">Challenge me</button>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="tab-learn" class="panel">
+      <h2>How a Soroban thinks</h2>
+      <p class="lede">A soroban is a calculator you can touch. Each rod is one digit. The beam in the middle is the counting line.</p>
+      <div class="cards">
+        <article><h3>1 rod = 1 digit</h3><p>Right rod = ones, next = tens, next = hundreds. Just like writing numbers!</p></article>
+        <article><h3>Top bead = 5</h3><p>Slide it <b>down</b> to the beam to add 5. Slide it up to take 5 away.</p></article>
+        <article><h3>Bottom beads = 1 each</h3><p>Slide them <b>up</b> to the beam. Four beads make 0–4, plus the 5-bead makes 0–9.</p></article>
+      </div>
+      <h3>Try the secret codes</h3>
+      <p>Friends of <b>5</b>: 1+4, 2+3. Friends of <b>10</b>: 1+9, 2+8, 3+7, 4+6, 5+5. These combos let you add even when a rod looks full!</p>
+      <div id="learnAbacus"></div>
+      <p class="readout">Value: <b id="learnValue">0</b></p>
+      <div class="lesson-nav">
+        <button class="btn" data-demo="7">Show 7</button>
+        <button class="btn" data-demo="23">Show 23</button>
+        <button class="btn" data-demo="485">Show 485</button>
+        <button class="btn ghost" data-demo="0">Clear</button>
+      </div>
+    </section>
+
+    <section id="tab-add" class="panel" data-lesson="add"></section>
+    <section id="tab-subtract" class="panel" data-lesson="subtract"></section>
+    <section id="tab-multiply" class="panel" data-lesson="multiply"></section>
+    <section id="tab-divide" class="panel" data-lesson="divide"></section>
+
+    <section id="tab-quiz" class="panel">
+      <h2>Quiz arcade</h2>
+      <p class="lede">Answer 8 questions. Abby watches how you do and picks what comes next. Use the real abacus above — no rush!</p>
+      <div class="quiz-setup">
+        <label>Mix
+          <select id="quizMix">
+            <option value="all" selected>Everything</option>
+            <option value="+">Addition only</option>
+            <option value="-">Subtraction only</option>
+            <option value="×">Multiplication only</option>
+            <option value="÷">Division only</option>
+          </select>
+        </label>
+        <button id="startQuiz" class="btn warm">Start quiz</button>
+        <span id="quizProgress" class="muted"></span>
+      </div>
+      <div id="quizBox" class="quiz-box" hidden>
+        <p id="quizQ" class="quiz-q">—</p>
+        <p id="quizHint" class="muted"></p>
+        <form id="quizForm" class="quiz-form">
+          <input id="quizInput" inputmode="numeric" autocomplete="off" placeholder="Your answer" />
+          <button class="btn" type="submit">Check</button>
+          <button id="quizHintBtn" type="button" class="btn ghost">Abacus hint</button>
+        </form>
+        <p id="quizFeedback" aria-live="polite"></p>
+      </div>
+      <h3>Your badges</h3>
+      <div id="badges" class="badges"></div>
+    </section>
+  </main>
+
+  <footer>
+    <span>Built for hands-on learners · Heaven bead 5, earth beads 1 · Meta Llama API coach when a key is set, friendly local coach otherwise.</span>
+    <button id="aboutBtn" class="link">How the AI works</button>
+  </footer>
+
+  <dialog id="aboutDialog">
+    <h3>How Abby works</h3>
+    <p>Abby is a coach that speaks “abacus”. The site sends your recent answers to the server, which estimates your level (1–5) and asks Meta's Llama API for a short, fun hint — or uses a built-in coach if no API key is configured.</p>
+    <p>To enable Meta AI: get a key from <b>llama.developer.meta.com</b>, set <code>META_API_KEY</code>, restart with <code>npm start</code>.</p>
+    <form method="dialog"><button class="btn">Close</button></form>
+  </dialog>
+
+  <script src="abacus.js"></script>
+  <script src="lessons.js"></script>
+  <script src="ai-coach.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
